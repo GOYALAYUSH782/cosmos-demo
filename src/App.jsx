@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import Row from "./components/Row";
 import {
   deleteRow,
@@ -9,6 +9,7 @@ import {
   handleTypeChangeAtIndividualLevel,
 } from "./utils";
 import { OBJECT } from "./constants";
+import { inject } from "@vercel/analytics";
 
 export default function App() {
   const [data, setData] = useState({
@@ -69,6 +70,10 @@ export default function App() {
       },
     ],
   });
+
+  // useEffect(() => {
+  //   inject();
+  // }, []);
 
   const handleNameUpdate = (value, key) => {
     key = key?.split?.("_")?.splice(1).join("_");
@@ -185,8 +190,8 @@ export default function App() {
   // cant have same key in first level
 
   return (
-    <div className="w-screen flex justify-center ">
-      <div className="border border-gray-200 rounded-lg shadow min-w-[700px] p-5 mt-8">
+    <div className="w-screen flex justify-center items-center flex-col ">
+      <div className="border border-gray-200 rounded-lg shadow w-[700px] p-5 mt-8">
         <div className="bg-slate-100 p-4">
           <div className="flex justify-between px-2">
             <p>Field Name and type</p>
@@ -205,6 +210,11 @@ export default function App() {
             />
           ))}
         </div>
+      </div>
+
+      <div className="border border-gray-200 rounded-lg shadow w-[700px] p-5 mt-8">
+        <em>Assumptions</em>-<p>1. Does not support array type</p> 2. Cant have
+        same key in first level
       </div>
     </div>
   );
